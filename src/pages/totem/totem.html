@@ -1,0 +1,50 @@
+<div class="totem-container">
+  <div class="totem-card">
+    <div class="header">
+      <h1>🏥 WebTickets</h1>
+      <p>Sistema de Atendimento</p>
+    </div>
+
+    <ng-container *ngIf="!carregando && !senhaEmitida && !erro">
+      <h2>Selecione o tipo de atendimento</h2>
+
+      <button (click)="emitir('SP')" class="btn btn-sp">
+        <span class="icone">🔴</span>
+        <span class="label">Prioritário</span>
+        <span class="desc">Idosos, gestantes, PCDs</span>
+      </button>
+
+      <button (click)="emitir('SG')" class="btn btn-sg">
+        <span class="icone">🟢</span>
+        <span class="label">Geral</span>
+        <span class="desc">Atendimento padrão</span>
+      </button>
+
+      <button (click)="emitir('SE')" class="btn btn-se">
+        <span class="icone">🔵</span>
+        <span class="label">Retirada de Exames</span>
+        <span class="desc">Buscar resultados</span>
+      </button>
+    </ng-container>
+
+    <div *ngIf="carregando" class="carregando">
+      <div class="spinner"></div>
+      <p>Emitindo sua senha...</p>
+    </div>
+
+    <div *ngIf="senhaEmitida && !carregando" class="ticket">
+      <h2>✅ Senha emitida com sucesso!</h2>
+      <div class="numero">{{ senhaEmitida.numeracao }}</div>
+      <p class="tipo">Tipo: <strong>{{ senhaEmitida.tipo }}</strong></p>
+      <p class="aguarde">Aguarde ser chamado no painel</p>
+      <button (click)="nova()" class="btn-nova">🎫 Nova Senha</button>
+    </div>
+
+    <div *ngIf="erro && !carregando" class="erro">
+      <div class="erro-icone">❌</div>
+      <h2>{{ erro }}</h2>
+      <button (click)="nova()" class="btn-nova">Tentar novamente</button>
+    </div>
+
+  </div>
+</div>
